@@ -26,9 +26,11 @@ public class Controller {
                     break;
                 case 2:
                     View.printList(allPersons);
+                    break;
                 case 3:
                     transformedPersons = Transformer.transform(allPersons);
                     View.printList(transformedPersons);
+                    break;
                 case 4:
                     View.displayText("Good bye");
                     break;

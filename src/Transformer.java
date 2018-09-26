@@ -17,20 +17,7 @@ public class Transformer {
          distinctNames.add(person.getName());
      }
 
-     //pętla wsadzająca imiona do mapy
-     for(String name : distinctNames){
-         namesAndAges.put(name, null);
-     }
-
-     //pętla która uzupełnia mape wiekiem osób (sumująca wiek jesli imie juz było w mapie)
-     for(Person person : persons){
-         if(namesAndAges.get(person.getName())==null){
-             namesAndAges.put(person.getName(),person.getAge() );
-         }
-         else{
-             namesAndAges.put(person.getName(),namesAndAges.get(person.getName())+person.getAge());
-         }
-     }
+     namesAndAges = fullFillMap(persons,distinctNames );
 
      //iteracja po mapie, tworzenie obiektów Person, i umieszczenie ich w nowej liście
      for(Map.Entry entry : namesAndAges.entrySet()){
@@ -40,4 +27,26 @@ public class Transformer {
 
      return transformedPersons;
  }
+
+
+ public static HashMap<String, Integer> fullFillMap(List<Person> allPersons, Set<String> distinctNames){
+     //pętla wsadzająca imiona do mapy
+     HashMap<String, Integer> namesAndAges = new HashMap<>();
+
+     for(String name : distinctNames){
+         namesAndAges.put(name, null);
+     }
+
+     //pętla która uzupełnia mape wiekiem osób (sumująca wiek jesli imie juz było w mapie)
+     for(Person person : allPersons){
+         if(namesAndAges.get(person.getName())==null){
+             namesAndAges.put(person.getName(),person.getAge() );
+         }
+         else{
+             namesAndAges.put(person.getName(),namesAndAges.get(person.getName())+person.getAge());
+         }
+     }
+     return namesAndAges;
+ }
+
 }
