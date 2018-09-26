@@ -1,10 +1,9 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Transformer {
 
  public static List<Person> transform(List<Person> persons){
-     //stworzenia setu imion który nie przyjmuje powtarzających imion
-     Set<String> distinctNames = new HashSet<>();
 
      //mapa do zmapowania odrębnych imion i sumy wieku takich samych imion
      HashMap<String, Integer> namesAndAges = new HashMap<>();
@@ -13,11 +12,9 @@ public class Transformer {
      List<Person> transformedPersons = new ArrayList<>();
 
      //petla wsadzająca imiona do setu
-     for(Person person : persons){
-         distinctNames.add(person.getName());
-     }
+//     distinctNames = persons.stream().map(Person::getName).collect(Collectors.toSet());
 
-     namesAndAges = fullFillMap(persons,distinctNames );
+     namesAndAges = fullFillMap(persons);
 
      //iteracja po mapie, tworzenie obiektów Person, i umieszczenie ich w nowej liście
      for(Map.Entry entry : namesAndAges.entrySet()){
@@ -29,13 +26,10 @@ public class Transformer {
  }
 
 
- public static HashMap<String, Integer> fullFillMap(List<Person> allPersons, Set<String> distinctNames){
+ public static HashMap<String, Integer> fullFillMap(List<Person> allPersons){
      //pętla wsadzająca imiona do mapy
      HashMap<String, Integer> namesAndAges = new HashMap<>();
 
-     for(String name : distinctNames){
-         namesAndAges.put(name, null);
-     }
 
      //pętla która uzupełnia mape wiekiem osób (sumująca wiek jesli imie juz było w mapie)
      for(Person person : allPersons){
